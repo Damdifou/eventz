@@ -13,7 +13,7 @@ const config = {
 		themes: true,
 	},
 
-	plugins: [typography, daisyui],
+	plugins: [require("daisyui")],
 }
 
 module.exports = config

@@ -27,13 +27,13 @@
 	}
 </script>
 
-<div class="mb-8">
-	<select
+<div class="mb-0">
+	<select class="select select-bordered capitalize max-w-full "
 		bind:value={current_theme}
 		data-choose-theme
-		class="select select-bordered select-primary w-full max-w-3xl text-xl capitalize"
 		on:change={set_theme}
 	>
+
 		<option value="" disabled={current_theme !== ''}>
 			Choose a theme
 		</option>

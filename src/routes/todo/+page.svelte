@@ -38,15 +38,21 @@
     }
 </script>
 <main>
-    <div class="container">
-        <h1 class="app-title">todo</h1>
+    <div class="container mx-auto px-center capitalize w-60">
+        <blockquote class="text-2xl font-semibold italic text-center text-slate-900">
+            <span class="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
+    <span class="relative text-white">Todo</span>
+  </span>
+
+        </blockquote>
         <ul class="todo-list">
             {#each todoItems as todo (todo.id)}
-                <li class="todo-item">
+                <li class="todo-item ">
                     <input id={todo.id} type="checkbox" />
-                    <label for={todo.id} class="tick" on:click={() => toggleDone(todo.id)}></label>
+                    <label for={todo.id} class="tick " on:click={() => toggleDone(todo.id)}></label>
                     <span>{todo.text}</span>
-                    <button class="delete-todo" on:click={() => deleteTodo(todo.id)}>
+                    <button class="delete-btn btn-square bg-blue-500 rounded-lg flex-none w-20 h-10 " on:click={() => deleteTodo(todo.id)}>
+                        <h1 class="app-title text-2xl">Delete</h1>
                         <svg><use href="#delete-icon"></use></svg>
                     </button>
                 </li>

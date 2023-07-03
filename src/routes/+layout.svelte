@@ -21,14 +21,12 @@
 							<a href="/about">j'explore</a>
 						</button>
 						<div class="dropdown dropdown-end">
-							<button tabindex="0" class="btn btn-ghost rounded-btn">Categorie</button>
-							<button tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
-								<li><button>Item 1</button></li>
-								<li><button>Item 2</button></li>
+							<button tabindex="0" class="btn btn-ghost rounded-btn">
+								<a href="/todo">Todo</a>
 							</button>
 						</div>
 						<div class="dropdown dropdown-end">
-							<button tabindex="0" class="btn btn-ghost rounded-btn">A Propos</button>
+							<button tabindex="0" class="btn btn-ghost rounded-btn">Categorie</button>
 							<button tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
 								<li><button>Item 1</button></li>
 								<li><button>Item 2</button></li>

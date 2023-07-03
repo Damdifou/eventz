@@ -38,10 +38,21 @@
                 });
         });
     }
-    function toggleDone(id) {
+    async function toggleDone(id) {
         const index = todoItems.findIndex(item => item.id === Number(id));
-        todoItems[index].checked = !todoItems[index].checked;
-          }
+        let todoItem = todoItems[index];
+        todoItem.completed = !todoItem.completed;
+        await fetch(url, {
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            body: JSON.stringify(todoItem), // body data type must match "Content-Type" header
+        }).then(() => {
+            fetch(url)
+                .then(r => r.json())
+                .then(data => {
+                    todoItems = data;
+                });
+        });
+    }
     function deleteTodo(id) {
         todoItems = todoItems.filter(item => item.id !== Number(id));
     }

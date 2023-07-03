@@ -1,33 +1,42 @@
 <script>
-    onMount(async () => {
-        await fetch(`https://jsonplaceholder.typicode.com/todos/`)
-            .then(r => r.json())
-            .then(data => {
-                continents = data;
-            });
-    })
-
     import {afterUpdate, onMount} from 'svelte';
-
-    afterUpdate(() => {
-        document.querySelector('.js-todo-input').focus();
-    });
 
     let todoItems = [];
     let newTodo = '';
 
-    function addTodo() {
+    const url = `https://jsonplaceholder.typicode.com/todos/`;
+
+    onMount(async () => {
+        await fetch(url)
+            .then(r => r.json())
+            .then(data => {
+                todoItems = data;
+            });
+    })
+    afterUpdate(() => {
+        document.querySelector('.js-todo-input').focus();
+    });
+
+    async function addTodo() {
         newTodo = newTodo.trim();
         if (!newTodo) return;
 
         const todo = {
-            text: newTodo,
-            checked: false,
-            id: Date.now(),
+            title: newTodo,
+            completed: false
         };
 
-        todoItems = [...todoItems, todo];
-        newTodo = '';
+        // Default options are marked with *
+        await fetch(url, {
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            body: JSON.stringify(todo), // body data type must match "Content-Type" header
+        }).then(() => {
+            fetch(url)
+                .then(r => r.json())
+                .then(data => {
+                    todoItems = data;
+                });
+        });
     }
     function toggleDone(id) {
         const index = todoItems.findIndex(item => item.id === Number(id));
@@ -48,9 +57,14 @@
         <ul class="todo-list">
             {#each todoItems as todo (todo.id)}
                 <li class="todo-item ">
-                    <input id={todo.id} type="checkbox" />
+
+                    <label class="cursor-pointer label">
+                        <span class="label-text">{todo.title}</span>
+                        <input type="checkbox" checked="checked" class="checkbox" value="{todo.completed}" on:click={() => toggleDone(todo.id)}>
+                    </label>
+                    <!--input id={todo.id} type="checkbox" value="{todo.completed}"/>
                     <label for={todo.id} class="tick " on:click={() => toggleDone(todo.id)}></label>
-                    <span>{todo.text}</span>
+                    <span>{todo.title}</span-->
                     <button class="delete-btn btn-square bg-blue-500 rounded-lg flex-none w-20 h-10 " on:click={() => deleteTodo(todo.id)}>
                         <h1 class="app-title text-2xl">Delete</h1>
                         <svg><use href="#delete-icon"></use></svg>

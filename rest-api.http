@@ -1,0 +1,35 @@
+GET https://jsonplaceholder.typicode.com/todos
+Accept: application/json
+
+<> 2023-07-03T142744.200.json
+<> 2023-07-03T142533.200.json
+
+###
+POST https://jsonplaceholder.typicode.com/todos
+Accept: application/json
+
+
+{
+            title: "ouaf",
+            completed: false
+};
+
+<> 2023-07-03T142656.201.json
+<> 2023-07-03T142649.201.json
+
+###
+DELETE https://jsonplaceholder.typicode.com/todos/1
+Accept: application/json
+
+<> 2023-07-03T142736.200.json
+<> 2023-07-03T142656.201.json
+<> 2023-07-03T142649.201.json
+
+###
+GET https://jsonplaceholder.typicode.com/users/1
+Accept: application/json
+
+<> 2023-07-03T142911.200.json
+<> 2023-07-03T142814.200.json
+<> 2023-07-03T142744.200.json
+<> 2023-07-03T142533.200.json

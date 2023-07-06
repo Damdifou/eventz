@@ -41,7 +41,7 @@
     async function toggleDone(id) {
         const index = todoItems.findIndex(item => item.id === Number(id));
         let todoItem = todoItems[index];
-        todoItem.completed = !todoItem.completed;
+
         await fetch(url, {
             method: "POST", // *GET, POST, PUT, DELETE, etc.
             body: JSON.stringify(todoItem), // body data type must match "Content-Type" header
@@ -53,12 +53,23 @@
                 });
         });
     }
-    function deleteTodo(id) {
-        todoItems = todoItems.filter(item => item.id !== Number(id));
+    async function deleteTodo(id) {
+        const index = deleteTodo(id);
+        let todoItem = todoItems[index];
+        await fetch(url + "/" + todoItem.id, {
+            method: "DELETE", // *GET, POST, PUT, DELETE, etc.
+
+        }).then(() => {
+            fetch(url)
+                .then(r => r.json())
+                .then(data => {
+                    todoItems = data;
+                });
+        });
     }
 </script>
 <main>
-    <div class="container mx-auto px-center capitalize w-60">
+    <div class="container mx-auto px-center capitalize w-auto">
         <blockquote class="text-2xl font-semibold italic text-center text-slate-900">
             <span class="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
     <span class="relative text-white">Todo</span>
@@ -71,7 +82,7 @@
 
                     <label class="cursor-pointer label">
                         <span class="label-text">{todo.title}</span>
-                        <input type="checkbox" checked="checked" class="checkbox" value="{todo.completed}" on:click={() => toggleDone(todo.id)}>
+                        <input type="checkbox" bind:checked={todoItems} class="checkbox" value="{todo.completed}" on:click={() => toggleDone(todo.id)}>
                     </label>
                     <!--input id={todo.id} type="checkbox" value="{todo.completed}"/>
                     <label for={todo.id} class="tick " on:click={() => toggleDone(todo.id)}></label>
@@ -80,6 +91,7 @@
                         <h1 class="app-title text-2xl">Delete</h1>
                         <svg><use href="#delete-icon"></use></svg>
                     </button>
+
                 </li>
             {/each}
         </ul>
